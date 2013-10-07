@@ -1,29 +1,38 @@
 package klib
 
 import (
+	"fmt"
 	"testing"
 )
 
 func TestKVector(t *testing.T) {
 
 	// Test Pointer type
-	var vec *KVector = NewKVector()
-	var tmp *KVector_T = new(KVector_T)
-	var tmp2 int = 2
-	//vec.PushBack(tmp)
-	vec.PushBack((*KVector_T(tmp2)))
-	if vec.Size() != 1 {
-		//t.Errorf("Sqrt(%v) = %v, want %v", in, x, out)
-		t.Errorf("vec.Size() != 1")
+	var vec *KVector = NewKVector() // size 1
+
+	// Test Insert
+	for i := 0; i < 20; i++ {
+		vec.PushBack(i)
+		if vec.Size() != i+1 {
+			//t.Errorf("Sqrt(%v) = %v, want %v", in, x, out)
+			t.Errorf("vec.Size() != %d, RealSize:%d", i+1, vec.Size())
+		}
 	}
 
-	// Test Value type
-	// var vec *KVector = NewKVector()
-	// var tmp *KVector_T = new(KVector_T)
+	// Test Index value
+	var tmp int = vec.Get(0).(int)
+	if tmp != 0 {
+		t.Errorf("Index 0 Value != 0,  Is %d", tmp)
+	}
 
-	// vec.PushBack(tmp)
-	// if vec.Size() != 1 {
-	// 	//t.Errorf("Sqrt(%v) = %v, want %v", in, x, out)
-	// 	t.Errorf("vec.Size() != 1")
-	// }
+	// Test Remove
+	for i := 0; i < 20; i++ {
+		vec.PopBack()
+		if vec.Size() != 20-1-i {
+			//t.Errorf("Sqrt(%v) = %v, want %v", in, x, out)
+			t.Errorf("vec.Size() != %d, RealSize:%d", 20-1-i, vec.Size())
+		}
+		fmt.Printf("Now The Size : %d,  Now The Capacity: %d \n", vec.Size(), vec.Capacity())
+	}
+
 }
