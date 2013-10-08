@@ -7,6 +7,10 @@ Author: Mrkelly
 */
 package klib
 
+import (
+// "fmt"
+)
+
 const (
 	SPARE_CAPACITY = 16 // Init Space
 )
@@ -25,12 +29,19 @@ func NewKVector(args ...int) *KVector {
 	}
 
 	var newVec *KVector = new(KVector)
+
 	newVec.size = initSize
 	newVec.capacity = initSize + SPARE_CAPACITY // default 2,   1 times increase
 	newVec.items = make([]_T, newVec.capacity)
 
 	return newVec
+	// newVec := KVector{make([]_T, newVec.capacity), initSize, initSize + SPARE_CAPACITY}
+	// return &newVec
 }
+
+// func (this *KVector) init() {
+// 	fmt.Printf("Init!!!!!!!!")
+// }
 
 //    with * star,  will be a instance function
 // New Capacity of items Slice
