@@ -25,7 +25,7 @@ class StarSpider(CrawlSpider):
 			main_title_sel = title_sels[0]
 
 			print "catch url: %s" % response.url
-			star_id = re.match('.*/(\d+).html', response.url).group(1)
+			star_id = re.match('.*/(\d+).html', response.url).group(1) # Get Id
 			star_name = main_title_sel.xpath('h1/text()')[0].extract()
 			print "%s---%s" % (star_id, star_name)
 
