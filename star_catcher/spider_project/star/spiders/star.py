@@ -63,7 +63,7 @@ class StarSpider(CrawlSpider):
 						av_time = cols[2].extract().strip()
 						av_public = cols[3].extract().strip()
 						av_other = cols[4].extract().strip()
-						print fanhao, av_name, av_time, av_public, av_other
+						print u'%s %s %s %s %s' % (fanhao, av_name, av_time, av_public, av_other)
 						db_client.replace_into(
 							'movie', 
 							'id, star_id, name, movie_length, public_time, other', 

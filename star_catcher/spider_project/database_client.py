@@ -38,4 +38,4 @@ class DatabaseClient:
 		self.db.commit()
 
 
-db_client = DatabaseClient("/home/kelly/data.db")
+db_client = DatabaseClient("./data.db")
