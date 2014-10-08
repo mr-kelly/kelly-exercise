@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/orm"
+	"github.com/mr-kelly/beego"
+	"github.com/mr-kelly/beego/orm"
 )
 
 type MainController struct {
