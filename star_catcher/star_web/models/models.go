@@ -10,7 +10,7 @@ type Star struct {
 }
 
 type Movie struct {
-	Id     string // fanhao
+	Id     string `orm:"pk"` // fanhao
 	StarId int
 }
 

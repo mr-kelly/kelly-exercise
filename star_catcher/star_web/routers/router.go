@@ -6,5 +6,8 @@ import (
 )
 
 func init() {
-	beego.Router("/", &controllers.MainController{})
+	var defaultController = &controllers.MainController{}
+
+	beego.Router("/", defaultController, "Get:GetIndex")
+	beego.Router("/star/:id", defaultController, "Get:GetStar")
 }

@@ -6,6 +6,7 @@ import (
 	"github.com/mr-kelly/beego/orm"
 	_ "star_web/routers"
 	// "star_web/models"
+	// "fmt"
 )
 
 func main() {
