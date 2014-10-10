@@ -30,6 +30,9 @@ class StarSpider(CrawlSpider):
 			print "catch url: %s" % response.url
 			star_id = re.match('.*/(\d+).html', response.url).group(1) # Get Id
 			star_name = main_title_sel.xpath('h1/text()')[0].extract()
+			if star_name.startswith(u'女优'):# 去掉女优两字
+				star_name = star_name.replace(u'女优', '')
+				print u'!!!!!!!!!!!女优！'
 			print "%s---%s" % (star_id, star_name)
 
 			# 小图片地址

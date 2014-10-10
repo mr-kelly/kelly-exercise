@@ -5,6 +5,7 @@ import (
 	"github.com/mr-kelly/beego"
 	"github.com/mr-kelly/beego/orm"
 	"star_web/models"
+	"strconv"
 )
 
 type MainController struct {
@@ -28,10 +29,29 @@ func (this *MainController) GetIndex() {
 	this.TplNames = "index.tpl"
 }
 
-func (this *MainController) GetStar() {
-	star_id := this.Ctx.Input.Param(":id")
+func (this *MainController) GetTemplate() {
+	this.TplNames = "template.tpl"
+}
 
-	this.Data["Star"] = star_id
+func (this *MainController) GetStar() {
+	star_id_param := this.Ctx.Input.Param(":id")
+	star_id, err := strconv.Atoi(star_id_param)
+
+	o := orm.NewOrm()
+
+	star := models.Star{Id: star_id}
+
+	err = o.Read(&star)
+
+	if err == orm.ErrNoRows {
+		fmt.Println("查询不到")
+	} else if err == orm.ErrMissPK {
+		fmt.Println("找不到主键")
+	} else {
+		fmt.Println(star.Id, star.Name)
+	}
+
+	this.Data["Star"] = star
 	this.Layout = "layout.tpl"
 	this.TplNames = "star_view.tpl"
 }

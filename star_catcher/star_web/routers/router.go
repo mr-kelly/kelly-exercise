@@ -9,5 +9,8 @@ func init() {
 	var defaultController = &controllers.MainController{}
 
 	beego.Router("/", defaultController, "Get:GetIndex")
+
+	beego.Router("/template", defaultController, "Get:GetTemplate")
+
 	beego.Router("/star/:id", defaultController, "Get:GetStar")
 }

@@ -31,6 +31,7 @@
             <li class="active">
               <a href="/">首页</a>
             </li>
+            <!--
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Themes <span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="themes">
@@ -70,13 +71,19 @@
                 <li><a href="./bootswatch.less">bootswatch.less</a></li>
               </ul>
             </li>
+          -->
           </ul>
-
+          <!--
           <ul class="nav navbar-nav navbar-right">
+
             <li><a href="http://builtwithbootstrap.com/" target="_blank">Built With Bootstrap</a></li>
             <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a></li>
           </ul>
-
+        -->
+          <form action="/search" class="navbar-form navbar-right">
+            <input name="keyword" type="text" class="form-control col-lg-8" placeholder="搜番号">
+            <input type="submit" class="btn btn-primary"/>
+          </form>
         </div>
       </div>
     </div>
@@ -89,7 +96,24 @@
         </div>
 
         <div class="col-md-4">
-          
+          <!--
+          <div class="col-lg-12">
+            <h2>相关推荐</h2>
+          </div>-->
+
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">相关推荐</h3>
+            </div>
+            <div class="panel-body">
+              <ul>
+                <li>
+                  <a href="#">Test</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </div>
 
