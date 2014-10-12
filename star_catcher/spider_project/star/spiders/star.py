@@ -1,11 +1,30 @@
 # -*- coding: utf-8 -*-
+import sys    
+reload(sys)   
+sys.setdefaultencoding('utf8')   
+
 import scrapy
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors import LinkExtractor
 import re
+
 from database_client import *
 import os
 
+from sqlobject import *
+import db_object
+
+class KStar(SQLObject):
+	class sqlmeta:
+		changeSchema = True
+	# 	lazyUpdate = True
+        # cacheValues = False
+	name = UnicodeCol()
+	small_pic_url = UnicodeCol()
+	big_pic_url = UnicodeCol()
+	intro = UnicodeCol()
+
+KStar.createTable(ifNotExists=True)
 
 class StarSpider(CrawlSpider):
 	name = "star"
@@ -32,7 +51,7 @@ class StarSpider(CrawlSpider):
 			star_name = main_title_sel.xpath('h1/text()')[0].extract()
 			if star_name.startswith(u'女优'):# 去掉女优两字
 				star_name = star_name.replace(u'女优', '')
-				print u'!!!!!!!!!!!女优！'
+				print u'移除"女优"二字！'
 			print "%s---%s" % (star_id, star_name)
 
 			# 小图片地址
@@ -66,7 +85,7 @@ class StarSpider(CrawlSpider):
 						av_time = cols[2].extract().strip()
 						av_public = cols[3].extract().strip()
 						av_other = cols[4].extract().strip()
-						print u'%s %s %s %s %s' % (fanhao, av_name, av_time, av_public, av_other)
+						# print u'%s %s %s %s %s' % (fanhao, av_name, av_time, av_public, av_other)
 						db_client.replace_into(
 							'movie', 
 							'id, star_id, name, movie_length, public_time, other', 
@@ -74,11 +93,17 @@ class StarSpider(CrawlSpider):
 					else:
 						print u'表格不是5列，而是%d列, 非番号列表吧' % len(cols)
 						
+			try:
+				dbObj = KStar(id=star_id, name=star_name, big_pic_url=big_pic_url, small_pic_url=small_pic_url)
+			except:
+				dbObj = KStar.get(star_id)
 
-			db_client.replace_into(
-				'star', 
-				'id, name, small_pic_url, big_pic_url', 
-				'%s, "%s", "%s", "%s"' % (star_id, star_name, small_pic_url, big_pic_url))
+			dbObj.set(name=star_name, big_pic_url=big_pic_url, small_pic_url=small_pic_url)
+
+			# db_client.replace_into(
+			# 	'star', 
+			# 	'id, name, small_pic_url, big_pic_url', 
+			# 	'%s, "%s", "%s", "%s"' % (star_id, star_name, small_pic_url, big_pic_url))
 
 			
 
