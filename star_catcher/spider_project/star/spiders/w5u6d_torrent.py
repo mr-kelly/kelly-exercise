@@ -18,10 +18,10 @@ class KTorrent(SQLObject):
 		changeSchema = True
 	# 	lazyUpdate = True
         # cacheValues = False
-	name = UnicodeCol()
-	size = UnicodeCol()
-	time = UnicodeCol()
-	intro = UnicodeCol()
+	name = UnicodeCol(default=None)
+	size = UnicodeCol(default=None)
+	time = UnicodeCol(default=None)
+	intro = UnicodeCol(default=None)
 
 KTorrent.createTable(ifNotExists=True)
 
@@ -62,7 +62,7 @@ class w5u6d_torrent(scrapy.Spider):
 
 
 		try:
-			dbObj = KTorrent(id=torrent_id, name=torrent_name, size=file_size, time=file_time, intro=file_intro)
+			dbObj = KTorrent(id=torrent_id)
 		except:
 			dbObj = KTorrent.get(torrent_id)
 

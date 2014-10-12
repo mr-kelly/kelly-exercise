@@ -19,10 +19,10 @@ class KStar(SQLObject):
 		changeSchema = True
 	# 	lazyUpdate = True
         # cacheValues = False
-	name = UnicodeCol()
-	small_pic_url = UnicodeCol()
-	big_pic_url = UnicodeCol()
-	intro = UnicodeCol()
+	name = UnicodeCol(default=None)
+	small_pic_url = UnicodeCol(default=None)
+	big_pic_url = UnicodeCol(default=None)
+	intro = UnicodeCol(default=None)
 
 KStar.createTable(ifNotExists=True)
 
@@ -70,7 +70,7 @@ class StarSpider(CrawlSpider):
 			print u'大图地址: %s' % big_pic_url
 
 			# 文字内容
-			# content = response.xpath('//div[@class="arcBody"]/div[@id="disappear"]')[0].extract()
+			content = response.xpath('//div[@class="arcBody"]/div[@id="disappear"]')[0].extract()
 			# print content
 
 			# 表格开始
@@ -94,11 +94,11 @@ class StarSpider(CrawlSpider):
 						print u'表格不是5列，而是%d列, 非番号列表吧' % len(cols)
 						
 			try:
-				dbObj = KStar(id=star_id, name=star_name, big_pic_url=big_pic_url, small_pic_url=small_pic_url)
+				dbObj = KStar(id=star_id)
 			except:
 				dbObj = KStar.get(star_id)
 
-			dbObj.set(name=star_name, big_pic_url=big_pic_url, small_pic_url=small_pic_url)
+			dbObj.set(name=star_name,  intro=content, big_pic_url=big_pic_url, small_pic_url=small_pic_url)
 
 			# db_client.replace_into(
 			# 	'star', 
